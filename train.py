@@ -74,7 +74,7 @@ class Trainer:
         else:
             # TODO Otherwise, use 'torch.amp.autocast' context with the specified dtype, and initialize GradScaler if mixed_precision_dtype is float16.
             self.ctx = torch.cuda.amp.autocast(dtype = mixed_precision_dtype) ### YOUR CODE HERE ###
-            self.gradscaler = torch.cuda.amp.GradScaler() if mixed_precision_dtype == torch.float16 else None ### YOUR CODE HERE ###
+            self.gradscaler = torch.cuda.amp.GradScaler(enabled=(dtype == 'float16')) if mixed_precision_dtype == torch.float16 else None ### YOUR CODE HERE ###
             
 
     def _set_ddp_training(self):
@@ -103,8 +103,8 @@ class Trainer:
         
         # TODO: If 'mixed_precision_dtype' is torch.float16, you have to modify the backward using the gradscaler.
         if self.mixed_precision_dtype==torch.float16:
-            self.gradscaler.scale(loss).backward()
             ### YOUR CODE HERE ###
+            self.gradscaler.scale(loss).backward()
             pass 
         else:
             loss.backward()
@@ -144,11 +144,11 @@ class Trainer:
     
                 #If 'mixed_precision_dtype' is torch.float16, you have to modify the gradient update step using the gradscaler.
                 if self.mixed_precision_dtype==torch.float16:
-                    self.gradscaler.step(self.optimizer)
-                    self.gradscaler.update()
                     ### YOUR CODE HERE ###
                     # TODO: optimizer step
                     # TODO: update scaler factor 
+                    self.gradscaler.step(self.optimizer)
+                    self.gradscaler.update()
                     pass 
                 else:
                     self.optimizer.step()
@@ -349,7 +349,7 @@ if __name__ == "__main__":
     eval_freq = 150
     
     # TODO: Choose strategy
-    distributed_strategy = "no" ### YOUR CODE HERE ###
+    distributed_strategy = "ddp" ### YOUR CODE HERE ###
     
     if distributed_strategy  == "ddp":
         # TODO: Initialize the process group for distributed data parallelism with nccl backend.
