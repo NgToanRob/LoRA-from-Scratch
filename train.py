@@ -4,7 +4,7 @@ from tqdm import tqdm
 
 
 from peft import LoraConfig, get_peft_model
-from transformers import AutoConfig, AutoTokenizer
+from transformers import AutoConfig, AutoTokenizer, AutoModelForCausalLM, DataCollatorForSeq2Seq
 
 from contextlib import nullcontext
 
