@@ -1,6 +1,7 @@
 ### LoRA-from-Scratch
 
 This repository implements a "Low-Rank Adaptation (LoRA)" model from scratch, using Python and Jupyter Notebooks. LoRA is a technique for fine-tuning large-scale machine learning models efficiently by reducing the number of trainable parameters.
+![LORA](https://miro.medium.com/v2/resize:fit:1400/0*f20TJtjM9Ix98m1N.png)
 
 ---
 
