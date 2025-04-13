@@ -77,6 +77,3 @@ This project is licensed under the [MIT License](LICENSE).
 - Inspired by the original Low-Rank Adaptation (LoRA) paper.
 - Special thanks to the open-source community for tools and resources.
 
---- 
-
-Feel free to adapt and modify this README as needed!
